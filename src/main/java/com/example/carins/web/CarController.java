@@ -35,10 +35,9 @@ public class CarController {
     }
 
     @GetMapping("/cars/{carId}/insurance-valid")
-    public ResponseEntity<?> isInsuranceValid(@PathVariable @Valid Long carId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String date) {
-        LocalDate d = LocalDate.parse(date);
-        boolean valid = carService.isInsuranceValid(carId, d);
-        return ResponseEntity.ok(new InsuranceValidityResponse(carId, d.toString(), valid));
+    public ResponseEntity<?> isInsuranceValid(@PathVariable Long carId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        boolean valid = carService.isInsuranceValid(carId, date);
+        return ResponseEntity.ok(new InsuranceValidityResponse(carId, date.toString(), valid));
     }
 
     @GetMapping("/cars/history/{carId}")
