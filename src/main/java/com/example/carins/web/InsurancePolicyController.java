@@ -1,11 +1,9 @@
 package com.example.carins.web;
 
+import com.example.carins.model.InsuranceClaim;
 import com.example.carins.model.InsurancePolicy;
 import com.example.carins.service.InsurancePolicyService;
-import com.example.carins.web.dto.InsurancePolicyCreateDto;
-import com.example.carins.web.dto.InsurancePolicyDto;
-import com.example.carins.web.dto.InsurancePolicyResponseDto;
-import com.example.carins.web.dto.InsurancePolicyUpdateDto;
+import com.example.carins.web.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class InsurancePolicyController {
 
-    private final InsurancePolicyService insurancePolicyService;
+    private final  InsurancePolicyService insurancePolicyService;
 
     public InsurancePolicyController(InsurancePolicyService insurancePolicyService) {
         this.insurancePolicyService = insurancePolicyService;
@@ -33,6 +31,21 @@ public class InsurancePolicyController {
         InsurancePolicy updatedInsurancePolicy = insurancePolicyService.updatePolicy(id, dto);
         InsurancePolicyDto responseDto = toDto(updatedInsurancePolicy);
         return ResponseEntity.ok(responseDto);
+    }
+
+    @PostMapping("/policies/{policyId}/claims")
+    public ResponseEntity<InsuranceClaimDto> createClaim(@PathVariable Long policyId, @Valid @RequestBody InsuranceClaimDto dto){
+        InsuranceClaim insuranceClaim = insurancePolicyService.createClaim(policyId, dto);
+        InsuranceClaimDto responseDto = toDto(insuranceClaim);
+        return ResponseEntity.ok(responseDto);
+    }
+
+    private InsuranceClaimDto toDto(InsuranceClaim insuranceClaim){
+        return new InsuranceClaimDto(
+                insuranceClaim.getCalimDate(),
+                insuranceClaim.getDescription(),
+                insuranceClaim.getAmount()
+        );
     }
 
     private InsurancePolicyDto toDto(InsurancePolicy insurancePolicy){

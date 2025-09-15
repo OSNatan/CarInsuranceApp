@@ -23,6 +23,7 @@ public class Owner {
     List<Car> cars;
 
     public Owner() {}
+
     public Owner(String name, String email) { this.name = name; this.email = email; }
 
     public Long getId() { return id; }
