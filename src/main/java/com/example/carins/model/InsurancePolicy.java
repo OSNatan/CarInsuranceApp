@@ -24,6 +24,8 @@ public class InsurancePolicy {
     @NotNull(message = "End Date cannot be null.")
     private LocalDate endDate;
 
+    private boolean expired;
+
     public InsurancePolicy() {}
 
     public InsurancePolicy(Car car, String provider, LocalDate startDate, LocalDate endDate) {
@@ -40,4 +42,6 @@ public class InsurancePolicy {
     public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
     public LocalDate getEndDate() { return endDate; }
     public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+    public boolean isExpired() { return expired; }
+    public void setExpired(boolean expired) { this.expired = expired; }
 }

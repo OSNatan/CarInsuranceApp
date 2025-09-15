@@ -21,4 +21,6 @@ public interface InsurancePolicyRepository extends JpaRepository<InsurancePolicy
     List<InsurancePolicy> findByCarId(Long carId);
 
     List<InsurancePolicy> findAllByEndDateIsNull();
+
+    List<InsurancePolicy> findByEndDateBeforeAndExpiredFalse(LocalDate date);
 }
